@@ -1,8 +1,20 @@
 <?php
 
-function erroresFuncion(){
 
-   
+$errores=array();
+
+if(isset($_POST["submit"])){ 
+    $nombre = $_POST["nombre"];
+    $correo=$_POST ["correo"];
+    $estudios=$_POST["estudios"];
+    $avatar=$_FILES["avatar"]; 
+
+    $nombreArchivo = $_FILES['avatar']['name'];
+    $directorioTemp = $_FILES['avatar']['tmp_name'];
+    $extension = $arrayArchivo['extension'];
+    $nombreCompleto = $directorioSubida.$nombreArchivo.".".$extension;
+    move_uploaded_file($directorioTemp, $nombreCompleto);
+    
     if ($nombre==""){
         $errores[]= ("el nombre tiene que contener algo");
     }else if(!preg_match("/^[a-zA-Z]+/", $nombre)){
@@ -19,16 +31,8 @@ function erroresFuncion(){
         $errores[]="Introduce una foto de avatar";
     }
 
-}
 
-$errores=array();
 
-if(isset($_POST["submit"])){ 
-    $nombre = $_POST["nombre"];
-    $correo=$_POST ["correo"];
-    $estudios=$_POST["estudios"];
-    $avatar=$_Post["avatar"]; 
-    erroresFuncion();
     if(empty($errores)){?>
     
         <h2>Mostrar datos enviados</h2>
@@ -51,7 +55,7 @@ if(isset($_POST["submit"])){
 
 <body>
 <h2>Formulario subida de archivos</h2>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <p>Nombre</p>
     <input type="text" name="nombre"  />
 
