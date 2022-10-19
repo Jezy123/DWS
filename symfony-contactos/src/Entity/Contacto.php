@@ -3,28 +3,42 @@
 namespace App\Entity;
 
 use App\Repository\ContactoRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContactoRepository::class)]
-class Contacto
-{
+
+
+class Contacto {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nombre = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $nombre;
 
-    #[ORM\Column(length: 15)]
-    private ?string $telefono = null;
+    /**
+     * @ORM\Column(type="string", length=15)
+     * @Assert\NotBlank()
+     */
+    private $telefono;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     * @Assert\Email(message="El email {{ value }} no es válido")
+     */
+    private $email;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Provincia $provincia = null;
+    /**
+     * @ORM\ManyToOne(targetEntity=Provincia::class)
+     */
+    private $provincia;
 
     public function getId(): ?int
     {
