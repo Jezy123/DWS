@@ -4,7 +4,7 @@ $serverNavegador=strtolower($_SERVER["HTTP_USER_AGENT"]);
 echo($serverNavegador);
     //Fin script
 
-    if (strpos($serverNavegador,"firefox")|| strpos($serverNavegador,"google")){
+    if (strpos($serverNavegador,"firefox")|| strpos($serverNavegador,"chrome")){
 
         $content = "Esta viendo la pagina con firefox";
 
