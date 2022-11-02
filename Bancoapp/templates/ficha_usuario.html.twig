@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}Usuario{% endblock %}
+{% block body %}
+    <h1>Ficha del Usuario</h1>
+    {% if usuario %}
+
+    <ul>
+
+        <li><strong>Nombre: {{ usuario.nombre}}</strong></li>
+
+        <li><strong>Teléfono: </strong>{{ usuario.telefono}}</li>
+
+        <li><strong>DNI: </strong>{{ usuario.dni}}</li>
+
+        <li><strong>CP: </strong>{{ usuario.cp}}</li>
+
+    </ul>
+    {% else %}
+        <p>Contacto no encontrado</p>
+    {% endif %}
+{% endblock %}

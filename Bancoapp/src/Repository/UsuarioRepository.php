@@ -39,6 +39,17 @@ class UsuarioRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByNombre($text): array
+    {
+        $qb = $this->createQueryBuilder('c')
+        ->andWhere('c.Nombre LIKE :text')
+        ->setParameter('text','%'. $text . '%')
+        ->getQuery();
+        return $qb->execute();
+    }
+
+    
+
 //    /**
 //     * @return Usuario[] Returns an array of Usuario objects
 //     */
