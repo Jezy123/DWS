@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Usuario;
 use App\Form\UsuarioFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
@@ -12,13 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BancoController extends AbstractController
 {
-    #[Route('/banco', name: 'app_banco')]
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->render('banco/index.html.twig', [
             'controller_name' => 'BancoController',
         ]);
     }
+
 
     #[Route('/nuevo', name: 'nuevo_miembro')]
     public function nuevo(ManagerRegistry $doctrine, Request $request) {
@@ -52,6 +54,20 @@ class BancoController extends AbstractController
         ));
     }
 
+    #[Route('/usuario/todos', name: 'todos_usuario')]
+
+    public function imprimir(ManagerRegistry $doctrine):Response{
+
+        $repositorio = $doctrine->getRepository(Usuario:: class);
+
+        $usuarios = $repositorio->findAll();
+
+        return $this->render('lista_usuarios.html.twig',[
+            'usuarios' => $usuarios
+        ]);
+    }
+
+
     #[Route('/usuario/{codigo}', name: 'ficha_usuario')]
 
     public function buscarUsuId(ManagerRegistry $doctrine , $codigo):Response{
@@ -76,6 +92,8 @@ class BancoController extends AbstractController
             'usuarios' => $usuarios
         ]);
     }
+
+ 
 
     #[Route('/usuario/update/{id}/{nombre}', name: 'modificar_usuario')]
     public function update(ManagerRegistry $doctrine, $id,$nombre): Response{
@@ -109,7 +127,7 @@ class BancoController extends AbstractController
     
         if ($usuario){
     
-            $formulario = $this->createForm(Usuario::class, $usuario);
+            $formulario = $this->createForm(UsuarioFormType::class, $usuario);
     
             $formulario->handleRequest($request);
     
