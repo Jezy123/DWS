@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Contact;
 use App\Form\ContactFormType;
+use App\Form\SubmitType;
 
 
 class PageController extends AbstractController
