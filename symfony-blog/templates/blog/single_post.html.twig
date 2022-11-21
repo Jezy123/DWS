@@ -1,0 +1,10 @@
+{{post.title}}
+{{asset('images/blog/' ~ post.image) }}
+{{post.content}}
+
+{{post.publishedAt | date('d') }} {{ post.publishedAt | date('F') }}
+{% if not post %}
+<h2>Post not found</h2>
+{% else %}
+resto de plantilla
+{% endif %}

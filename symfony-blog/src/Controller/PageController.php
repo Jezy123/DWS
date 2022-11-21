@@ -10,15 +10,23 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Contact;
 use App\Form\ContactFormType;
 use App\Form\SubmitType;
+use App\Entity\Category;
+use App\Entity\Post;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class PageController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response
-    {
-	    return $this->render('page/index.html.twig', []);
-    }
+public function index(ManagerRegistry $doctrine, Request $request): Response
+{
+    $repository = $doctrine->getRepository(Category::class);
+
+    $categories = $repository->findAll();
+
+    return $this->render('page/index.html.twig', ['categories' => $categories]);
+}
+
 
     #[Route('/about', name: 'about')]
     public function about(): Response
@@ -50,16 +58,13 @@ class PageController extends AbstractController
         return $this->render('page/blog.html.twig', []);
     }
 
-    #[Route('/single_post', name: 'single_post')]
-    public function single_post(): Response
-    {   
-        return $this->render('page/single_post.html.twig', []);
-    }
 
     #[Route('/thankyou', name: 'thankyou')]
     public function thankyou(): Response
     {   
         return $this->render('page/thankyou.html.twig', []);
     }
+
+
 
 }

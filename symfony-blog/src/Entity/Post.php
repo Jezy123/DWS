@@ -35,6 +35,18 @@ class Post
     #[ORM\Column]
     private ?int $numLikes = null;
 
+    #[ORM\Column]
+    private ?int $numComments = null;
+
+    #[ORM\Column]
+    private ?int $numViews = null;
+
+    public function __construct()
+    {
+    $this->publishedAt = new \DateTime();
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +132,30 @@ class Post
     public function setNumLikes(int $numLikes): self
     {
         $this->numLikes = $numLikes;
+
+        return $this;
+    }
+
+    public function getNumComments(): ?int
+    {
+        return $this->numComments;
+    }
+
+    public function setNumComments(int $numComments): self
+    {
+        $this->numComments = $numComments;
+
+        return $this;
+    }
+
+    public function getNumViews(): ?int
+    {
+        return $this->numViews;
+    }
+
+    public function setNumViews(int $numViews): self
+    {
+        $this->numViews = $numViews;
 
         return $this;
     }

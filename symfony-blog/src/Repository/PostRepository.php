@@ -39,6 +39,19 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+* Returns an array of Post objects
+*/
+public function findAll()
+{
+    return $this->createQueryBuilder('p')
+        ->orderBy('p.publishedAt', 'DESC')
+        ->getQuery()
+        ->getResult()
+    ;
+}
+
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */
