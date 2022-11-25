@@ -29,7 +29,7 @@ class PageController extends AbstractController
             $entityManager = $doctrine->getManager();    
             $entityManager->persist($contacto);
             $entityManager->flush();
-            return $this->redirectToRoute('thankyou', []);
+            return $this->redirectToRoute('index', []);
         }
         return $this->render('page/contact.html.twig', array(
             'form' => $form->createView()    

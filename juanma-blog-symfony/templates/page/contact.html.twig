@@ -1,23 +1,28 @@
-{{ form_start(form, {'attr': {'class':'form-horizontal'}}) }}
-{{ form_errors(form) }}
-	<div class="form-group">
-		<div class="col-xs-6">
-			{{ form_row(form.Nombre, {'attr': {'class':'form-control'}}) }}
-		</div>
-		<div class="col-xs-6">
-			{{ form_row(form.apellido, {'attr': {'class':'form-control'}}) }}
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-xs-12">
-			{{ form_row(form.email, {'attr': {'class':'form-control'}}) }}
-		</div>
-	</div>
+{% extends 'base.html.twig' %}
+{% block title %}Index{% endblock %}  
 
-	<div class="form-group">
-		<div class="col-xs-12">
-			{{ form_row(form.mensaje, {'attr': {'class':'form-control'}}) }}
-			{{ form_row(form.Send, {'attr': {'class':'pull-right btn btn-lg sr-button'}}) }}
+{% block body %}
+	{{ form_start(form, {'attr': {'class':'form-horizontal'}}) }}
+	{{ form_errors(form) }}
+		<div class="form-group">
+			<div class="col-xs-6">
+				{{ form_row(form.Nombre, {'attr': {'class':'form-control'}}) }}
+			</div>
+			<div class="col-xs-6">
+				{{ form_row(form.apellido, {'attr': {'class':'form-control'}}) }}
+			</div>
 		</div>
-	</div>
-{{ form_end(form) }}
+		<div class="form-group">
+			<div class="col-xs-12">
+				{{ form_row(form.email, {'attr': {'class':'form-control'}}) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-xs-12">
+				{{ form_row(form.mensaje, {'attr': {'class':'form-control'}}) }}
+				{{ form_row(form.Send, {'attr': {'class':'pull-right btn btn-lg sr-button'}}) }}
+			</div>
+		</div>
+	{{ form_end(form) }}
+{% endblock %}
