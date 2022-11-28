@@ -9,7 +9,7 @@
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
                      <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="{{ path('index') }}">Home</a>
                      </li>
                      <li class="nav-item">
                         <a class="nav-link" href="about.html">About</a>
@@ -21,7 +21,7 @@
                         <a class="nav-link" href="features.html">Features</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="contact">Contact Us</a>
+                        <a class="nav-link" href="{{ path('contacto') }}">Contact Us</a>
                      </li>
                      <li class="nav-item">
                          {% if app.user %}
