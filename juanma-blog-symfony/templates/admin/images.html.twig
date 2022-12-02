@@ -11,5 +11,18 @@
        	</div>   
    	  </div>
    </div>
+	<div class="container">
+		<div class="row">
+			{% for image in images %}
+				<div class="col-md-3">
+					<img src="{{ asset('/img/' ~ image.file) }}">
+				</div>   
+				<div class="col-md-8">
+					<a href="{{ path('delete', { 'id': image.id }) }}">Borrar imagen</a>
+				</div> 
+			{% endfor %}
+		</div>
+	</div>
+
 <!-- Principal Content Start -->
 {% endblock %}

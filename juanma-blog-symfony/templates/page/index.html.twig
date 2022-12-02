@@ -10,12 +10,13 @@
                   <div class="carousel-inner">
 
                      {% for image in images %}
-                     <div class="carousel-item">
+                      
+                     <div class="carousel-item  {% if loop.first %}active{% endif %}">
+                      
                         <div class="image_main">
                            <div class="container">
-                              <img href="{{ asset('images/index/gallery/' ~ image.file) }}" class="image_1">
+                              <img src="{{ asset('/img/' ~ image.file) }}" class="image_1">
 
-                              <div class="contact_bt"><a href="contact.html">Contact Us</a></div>
                            </div>
                         </div>
                      </div>

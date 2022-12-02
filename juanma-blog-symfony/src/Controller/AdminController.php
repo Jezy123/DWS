@@ -24,6 +24,24 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminController extends AbstractController
 {
+    #[Route('/admin/imagesdelete/{id}', name: 'delete')]
+    public function setFileName(ManagerRegistry $doctrine, int $id): Response{
+
+        $entityManager = $doctrine->getManager();
+        $repositorio = $doctrine->getRepository(Image::class);
+        $image = $repositorio->find($id);
+        if ($image){
+            try{
+                $entityManager-> remove($image);
+                $entityManager-> flush();
+                return new Response("Imagen suprimida de la existencia");
+            } catch (\Exception $e){
+                return new Response("Error eliminado objeto");
+            }
+        } else 
+        return $this->render('page/index.html.twig');
+    }
+
     #[Route('/admin/images', name: 'app_images')]
     public function images(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response
     {
@@ -44,11 +62,21 @@ class AdminController extends AbstractController
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
         
                 // Move the file to the directory where images are stored
-              
-        
+                
+                try {
+                    $file->move(
+                        $this->getParameter('images-directory'), $newFilename
+    
+                    );
+    
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
                 // updates the 'file$filename' property to store the PDF file name
                 // instead of its contents
                 $image->setFile($newFilename);
+
                 $entityManager-> persist($image);
 
                 $entityManager->flush();

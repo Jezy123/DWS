@@ -24,6 +24,24 @@ class PageController extends AbstractController
 }
 
 
+    #[Route('/about', name: 'about')]
+    public function about(ManagerRegistry $doctrine, Request $request): Response
+    {
+    return $this->render('page/about.html.twig');
+    }
+    
+    #[Route('/features', name: 'features')]
+    public function features(ManagerRegistry $doctrine, Request $request): Response
+    {
+    return $this->render('page/features.html.twig');
+    }
+
+    #[Route('/blog', name: 'blog')]
+    public function blog(ManagerRegistry $doctrine, Request $request): Response
+    {
+    return $this->render('page/blog.html.twig');
+    }
+
     #[Route('/contact', name: 'contacto')]
     public function contact(ManagerRegistry $doctrine, Request $request): Response
     {
