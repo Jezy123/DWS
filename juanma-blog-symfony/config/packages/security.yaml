@@ -33,6 +33,8 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+                # matches /admin/* except for anything matching the above rule
+        - { path: '^/blog/new', roles: [ROLE_ADMIN, ROLE_AUTHENTICATED] }
 
 when@test:
     security:
