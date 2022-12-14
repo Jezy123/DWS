@@ -33,6 +33,7 @@ class PostController extends AbstractController
         $post = new Post();
         $form = $this->createForm(PostFormType::class, $post);
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();  
             $post->setPostUser($this->getUser());
@@ -100,15 +101,33 @@ class PostController extends AbstractController
     #[Route('blog', name: 'blog')]
     public function blog(ManagerRegistry $doctrine,  Request $request): Response
     {
-
+        
         $repositorio = $doctrine->getRepository(Post::class);
         $posts = $repositorio->findAll();
 
-
-        return $this->render('blog/single_post.html.twig', [
+        return $this->render('page/blog.html.twig', [
             'posts' => $posts,
 
         ]);
     }
+
+
+    #[Route('/single_post/{title}/like', name: 'post_like')]
+    public function like(ManagerRegistry $doctrine, $title): Response
+    {
+        $repository = $doctrine->getRepository(Post::class);
+        $post = $repository->findOneBy(["title"=>$title]);
+        if ($post){
+            $post->setNumLikes($post->getNumLikes() + 1);
+            $entityManager = $doctrine->getManager();    
+            $entityManager->persist($post);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('single_post', ["title" => $title]);
+
+    }
+
+
+
 
 }

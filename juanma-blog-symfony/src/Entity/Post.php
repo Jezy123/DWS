@@ -32,7 +32,6 @@ class Post
     private ?User $postUser = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:'Debes introducir una imagen')]
     private ?string $image = null;
 
     #[ORM\Column]

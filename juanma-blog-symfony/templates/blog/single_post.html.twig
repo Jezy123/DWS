@@ -13,6 +13,8 @@
                   <p class="post_text">{{post.publishedAt | date('d') }} {{ post.publishedAt | date('F') }}</p>
                   <h2 class="most_text">{{post.postUser.name}} : {{post.title}}</h2>
                   <p class="lorem_text">{{post.content}}</p>
+                   <a href="{{ path('post_like', { 'title': post.title }) }}"> Me gusta </a>
+                  <p class="lorem_text">{{ post.numLikes }}</p>
                   <div class="social_icon_main">
                      <div class="social_icon">
                         <ul>
