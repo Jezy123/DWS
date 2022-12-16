@@ -34,9 +34,16 @@
                             <li class="{{ (app.request.attributes.get('_route') == 'app_register')  ? 'active': ''}} "><a class="nav-link" href="{{ path('app_register') }}"><i class="fa fa-user-secret sr-icons"></i> Register</a></li>
                             {% endif %}
                      </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="{{ asset('images/serach-icon.png')}}"></a>
+
+                      <li class="nav-item">
+                        <form class="" action='{{ path('blog_buscar') }}'>
+                           <input type="text" class="form-control" style="display:unset; width:55%" placeholder="Research" name='searchTerm'>
+                           <button type='submit' class="btn btn-primary btn-danger"><i class="fa fa-search"></i>
+                           </button>
+                        </form>
+
                      </li>
+                     
                   </ul>
                </div>
             </nav>

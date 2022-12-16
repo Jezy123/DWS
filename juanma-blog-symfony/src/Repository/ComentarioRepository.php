@@ -6,6 +6,7 @@ use App\Entity\Comentario;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @extends ServiceEntityRepository<Comentario>
  *
@@ -38,6 +39,8 @@ class ComentarioRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+ 
 
 //    /**
 //     * @return Comentario[] Returns an array of Comentario objects

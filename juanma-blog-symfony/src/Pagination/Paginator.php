@@ -105,7 +105,5 @@ class Paginator
     {
         return $this->results;
     }
-
-
 }
 

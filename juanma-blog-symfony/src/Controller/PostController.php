@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+;
 
 use App\Entity\Comentario;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,17 +14,11 @@ use App\Entity\Post;
 use App\Form\PostFormType;
 use App\Form\SumbitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use App\Form\ComentarioFormType;
 
 class PostController extends AbstractController
 {
-    #[Route('/post', name: 'app_post')]
-    public function index(): Response
-    {
-        return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
-        ]);
-    }
 
 
     #[Route('/blog/new', name: 'new_post')]
@@ -96,18 +91,26 @@ class PostController extends AbstractController
     }
 
 
+    #[Route('/blog/buscar/{page}', name: 'blog_buscar')]
+    public function buscar(ManagerRegistry $doctrine,  Request $request, int $page = 1): Response
+        {
+            $repository = $doctrine->getRepository(Post::class);
+            $searchTerm = $request->query->get('searchTerm', '');
+            $posts = $repository->findByTextPaginated($page, $searchTerm);
+            return $this->render('page/blog.html.twig', [
+                'posts' => $posts,
+                'searchTerm' => $searchTerm
+            ]);
+        }
 
-
-    #[Route('blog', name: 'blog')]
-    public function blog(ManagerRegistry $doctrine,  Request $request): Response
+    #[Route('/blog/{page}', name: 'blog')]
+    public function index(ManagerRegistry $doctrine, int $page = 1): Response
     {
-        
-        $repositorio = $doctrine->getRepository(Post::class);
-        $posts = $repositorio->findAll();
+        $repository = $doctrine->getRepository(Post::class);
+        $posts = $repository->findAllPaginated($page);
 
         return $this->render('page/blog.html.twig', [
             'posts' => $posts,
-
         ]);
     }
 
@@ -126,8 +129,6 @@ class PostController extends AbstractController
         return $this->redirectToRoute('single_post', ["title" => $title]);
 
     }
-
-
 
 
 }
