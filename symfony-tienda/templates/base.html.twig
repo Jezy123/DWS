@@ -85,7 +85,12 @@
                 <a href="{{ path('service') }}" class="nav-item nav-link {{ (app.request.attributes.get('_route') == 'service')  ? 'active': ''}}">Service</a>
                 <a href="{{ path('product') }}" class="nav-item nav-link {{ (app.request.attributes.get('product') == 'product')  ? 'active': ''}}">Product</a>
                 <a href="{{ path('app_cart') }}" class="nav-item nav-link {{ (app.request.attributes.get('_route') == 'app_cart')  ? 'active': ''}}">Cart</a>
-                
+                {% if app.user %}
+                            <a href="{{ path('app_logout') }}"><i class="fa fa-sign-out sr-icons"></i> {{ app.user.email }} - Logout</a>
+                            {% else %}
+                            <li class="{{ (app.request.attributes.get('_route') == 'app_login')  ? 'active': ''}} lien"><a href="{{ path('app_login') }}"><i class="fa fa-sign-in sr-icons"></i> Login</a></li>
+                            <li class="{{ (app.request.attributes.get('_route') == 'app_register')  ? 'active': ''}} "><a href="{{ path('app_register') }}"><i class="fa fa-user-secret sr-icons"></i> Register</a></li>
+                            {% endif %}
 
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -95,6 +100,8 @@
                         <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                         <a href="blog.html" class="dropdown-item">Blog Grid</a>
                         <a href="detail.html" class="dropdown-item">Blog Detail</a>
+
+
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Contact <i class="bi bi-arrow-right"></i></a>
