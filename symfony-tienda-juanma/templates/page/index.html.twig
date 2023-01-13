@@ -112,7 +112,8 @@
                      <figure><img src="{{ asset('images/' ~ product.photo) }}" alt="#"/></figure>
                      <h3>{{product.price}} $</h3>
                      <span> {{product.name}}  </span>
-                     <a class="read_more mar_top" href="Javascript:void(0)"> Buy Now</a>
+                  <a class="btn btn-primary py-2 px-3 open-cart-product" data-id="{{product.id}}"><i class="bi bi-eye"></i>Comprar</a>
+
                   </div>
                </div>
                {% endfor %}
@@ -363,6 +364,8 @@
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
+       <script src="js/app.js"></script>
+
       <script>
          function openNav() {
            document.getElementById("myNav").style.width = "100%";

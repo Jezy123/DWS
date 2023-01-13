@@ -14,6 +14,10 @@
         {% endblock %}
     </head>
     <body>
+         {% include('product/_cartProducts.html.twig') %}
         {% block body %}{% endblock %}
+   
     </body>
+    <script src="{{asset('js/main.js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
 </html>
