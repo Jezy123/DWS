@@ -1,0 +1,49 @@
+  <div id="myNav" class="menu_sid">
+         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+         <div class="menu_sid-content">
+            <a href="/#protien">Our Protien</a>
+            <a href="/#about">About Us</a>
+            <a href="/#testimonial">Testimonial</a>
+            <a href="/#contact">Contact Us</a>
+            <a href="{{ path('app_cart') }}" class="nav-item nav-link {{ (app.request.attributes.get('_route') == 'app_cart')  ? 'active': ''}}">Cart</a>
+         
+         </div>
+      </div>
+      <!-- header -->
+      <header>
+         <!-- header inner -->
+         <div class="header">
+         <div class="menu_sitbar">
+            <ul class="menu">
+               <li><button type="button" >
+                  <img style="" onclick="openNav()" src="{{asset("images/menu_icon.png")}}" alt="#"/>
+                  </button>
+               </li>
+            </ul>
+            <ul class="social_icon">
+               <li><a href="javascript:void(0)"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+               <li><a href="javascript:void(0)"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+               <li><a href="javascript:void(0)"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+            </ul>
+         </div>
+         <div class="header_full_bg">
+            <div class="header_top">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="logo">
+                           <a href="index.html"><img src="{{asset("images/logo.png")}}" alt="#"/></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+      <script>
+         function openNav() {
+           document.getElementById("myNav").style.width = "100%";
+         }
+         
+         function closeNav() {
+           document.getElementById("myNav").style.width = "0%";
+         }
+      </script>

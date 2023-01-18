@@ -15,4 +15,5 @@ class PageController extends AbstractController
         return $this->render('page/index.html.twig',compact('products'));
         
     }
+    
 }
