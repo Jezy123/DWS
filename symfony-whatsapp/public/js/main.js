@@ -79,34 +79,35 @@ var toUserId=""
     websocket.onmessage = function(evt) {
         var response = JSON.parse(evt.data); //PHP sends Json data
         //hacer lo que corresponda con response
-        console.log(response.message.text)
-        var mensajeOtro =  `<div class="flex mb-2">
-        <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-            <p class="text-sm text-teal">
-            ${response.message.from_user_name}
-            </p>
-            <p class="text-sm mt-1">
-            ${response.message.text}
-            </p>
-            <p class="text-right text-xs text-grey-dark mt-1">
-            ${response.message.timestamp.date}
-            </p>
-         </div>
-        </div>`
-                
-        var mensajeMio= `<div class=" misMensajes flex justify-end mb-2">
-                <div class="rounded py-2 px-3" style="background-color: #E2F7CB">
-                    <p class="text-sm mt-1">
-                    ${response.message.text}
-                    </p>
-                    <p class="text-right text-xs text-grey-dark mt-1">
-                    ${response.message.timestamp.date}
-                    </p>
-                </div>
-            </div>`
 
         
         if(response.message.type=="chatmsg"){
+
+            var mensajeOtro =  `<div class="flex mb-2">
+            <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
+                <p class="text-sm text-teal">
+                ${response.message.from_user_name}
+                </p>
+                <p class="text-sm mt-1">
+                ${response.message.text}
+                </p>
+                <p class="text-right text-xs text-grey-dark mt-1">
+                ${response.message.timestamp.date}
+                </p>
+             </div>
+            </div>`
+                    
+            var mensajeMio= `<div class=" misMensajes flex justify-end mb-2">
+                    <div class="rounded py-2 px-3" style="background-color: #E2F7CB">
+                        <p class="text-sm mt-1">
+                        ${response.message.text}
+                        </p>
+                        <p class="text-right text-xs text-grey-dark mt-1">
+                        ${response.message.timestamp.date}
+                        </p>
+                    </div>
+                </div>`
+    
         if(response.fromUserId==($('#user').data("user-id"))){
          $('#messages').append(mensajeOtro)
     
