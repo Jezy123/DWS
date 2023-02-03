@@ -11,17 +11,40 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('image')->getData();
+
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+                // this is needed to safely include the file name as part of the URL
+                // Move the file to the directory where images are stored
+                try {
+        
+                    $file->move(
+                        $this->getParameter('images_directory'), $newFilename
+                    );
+                    $filesystem = new Filesystem();
+                    $filesystem->copy(
+                        $this->getParameter('images_directory') . '/'. $newFilename, 
+                        $this->getParameter('portfolio_directory') . '/'.  $newFilename, true);
+        
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -29,7 +52,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setImage($newFilename);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
