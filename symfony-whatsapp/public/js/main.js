@@ -79,14 +79,14 @@ var toUserId=""
     websocket.onmessage = function(evt) {
         var response = JSON.parse(evt.data); //PHP sends Json data
         //hacer lo que corresponda con response
-
+        console.log(response)
         
         if(response.message.type=="chatmsg"){
 
             var mensajeOtro =  `<div class="flex mb-2">
             <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
                 <p class="text-sm text-teal">
-                ${response.message.from_user_name}
+                ${response.message.fromUserName}
                 </p>
                 <p class="text-sm mt-1">
                 ${response.message.text}
@@ -108,12 +108,13 @@ var toUserId=""
                     </div>
                 </div>`
     
-        if(response.fromUserId==($('#user').data("user-id"))){
-         $('#messages').append(mensajeOtro)
-    
-        }else{
+            if(response.message.fromUserId==($('#user').data("user-id"))){
             $('#messages').append(mensajeMio)
-        }
+        
+            }else{
+                $('#messages').append(mensajeOtro)
+            }
+         
         }
     }
 
